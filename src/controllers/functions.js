@@ -1,7 +1,10 @@
+const { dateList } = require("../utils")
+
 // Nas funções serão implementadas as regras de negócio e serão usadas pelas rotas em routers.js
 
 // A função a baixo troca posição da lista fixa
 let list = ["Pedro", "José", "Aderbal", "Danilo", "Luisa","Vitoria"]
+
 
 module.exports ={
   async processAct(request,response) {
@@ -22,8 +25,24 @@ module.exports ={
       response.status(200).send({ oldList: list, newList: newList})
       response.status(200).send('teste de função')
     } catch (error) {
-      response.status(500).send()
+      response.status(500).send(error)
     }
+  },
+  async diasMes(request, response) {
+    try {
+      const { mes, ano } = request.body
+      if (!(mes || ano)) {
+        response.status(400).send({"mensagem": 'Mês ou ano não informado.'})
+      }
+      if (dateList(mes, ano)) {
+        response.status(200).send({"datelist": dateList(mes, ano)})
+      } else {
+        response.status(400).send({"mensagem": 'Mês tem que ser um valor entre 1 e 12'})
+      }
+    } catch (error){
+      response.status(500).send(error)
+    }
+    
   }
 }
   

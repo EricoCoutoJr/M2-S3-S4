@@ -6,3 +6,19 @@ exports.validaEmail = (email) => {
     }
     return false;
   }
+
+exports.dateList = ( mes, ano) => {
+        const month = [1,2,3,4,5,6,7,8,9,10,11,12]
+        const listDays = []
+        if (month.includes(mes)){
+            let lastDay = new Date(ano, mes, 0);
+            lastDay = lastDay.getDate()
+            for (let dia = 1; dia < lastDay+1; dia++) {
+                day = dia+'/'+mes+'/'+ano
+                listDays.push(day);
+            }
+            return listDays
+        } else {
+            null
+        }
+    }
