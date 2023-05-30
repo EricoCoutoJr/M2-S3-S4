@@ -1,4 +1,5 @@
-const { dateList } = require("../utils")
+const { request } = require("express")
+const { dateList, readData, writeData } = require("../utils")
 
 // Nas funções serão implementadas as regras de negócio e serão usadas pelas rotas em routers.js
 
@@ -42,7 +43,30 @@ module.exports ={
     } catch (error){
       response.status(500).send(error)
     }
-    
+  },
+  
+  async insertItem(request, response) {
+    const { item } = request.body
+    const fileName = "src/data/itens.json"
+
+    if (!item){
+      return response.status(400).send({ mensagem: 'Não foi enviado item para inclusão'})
+    }
+
+    let itens = readData(fileName)
+    if (!itens) {
+      writeData(fileName, [{ item }])
+      return response.status(200).send({
+        mensagem: "Adicionou um item.", 
+        dado: item
+      })
+    }
+    itens = [...itens, {item}]
+    writeData(fileName, itens)
+    return response.status(200).send({
+      mensagem: "Adicionou mais um item.",
+      dado: item})
+
   }
 }
   

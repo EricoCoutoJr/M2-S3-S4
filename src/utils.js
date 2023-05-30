@@ -22,3 +22,25 @@ exports.dateList = ( mes, ano) => {
             null
         }
     }
+
+const fs = require("fs")
+
+exports.writeData = (fileName, data) => {
+  try {
+    fs.writeFileSync('' + fileName, 
+    JSON.stringify(data))
+    } catch (error) {
+        throw error
+    }
+}
+
+exports.readData = (fileName) => {
+  try {
+    const readResult = JSON.parse(
+      fs.readFileSync('' + fileName, 'utf-8')
+      )
+    return readResult
+    } catch (error) {
+        return null
+    }
+}
