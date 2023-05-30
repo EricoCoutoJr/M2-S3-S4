@@ -13,10 +13,12 @@ module.exports ={
       }
       let posName1 = list.indexOf(name1)
       let posName2 = list.indexOf(name2)
+      if ((posName1 || posName2)) {
+        response.status(400).send('Um ou mais nomes não constam na lista.')
+      }
       let newList = [...list]
       newList[posName1] = list[posName2]
       newList[posName2] = list[posName1]
-      console.log(list, newList)
       response.status(200).send({ oldList: list, newList: newList})
       response.status(200).send('teste de função')
     } catch (error) {
