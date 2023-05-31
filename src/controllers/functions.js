@@ -67,6 +67,31 @@ module.exports ={
       mensagem: "Adicionou mais um item.",
       dado: item})
 
+  },
+  async filtrar(request,response) {
+    users = readData('src/data/user.json')
+    const { ageMin, ageMax, state, job} = request.query
+    console.log(ageMin, ageMax, state, job)
+    if((!ageMin) && (!ageMax) && (!state) && (!job)){
+      return response.status(400).send({ mensagem: 'É necessário o uso de um dos parâmetros.',
+                                          erro: 'Requisição inválida. Sem parâmetros.'})
+    }
+    let usersFiltrados = users.filter(user => {
+      if (ageMin && user.age < parseInt(ageMin)) {
+        return false;
+      }
+      if (ageMax && user.age > parseInt(ageMax)) {
+        return false;
+      }
+      if (state && !user.state.toLowerCase().includes(state.toLowerCase())) {
+        return false;
+      }
+      if (job && !pessoa.job.toLowerCase().includes(job.toLowerCase())) {
+        return false;
+      }
+      return true;
+    });
+    return response.status(200).send({mensagem: usersFiltrados})
   }
 }
   

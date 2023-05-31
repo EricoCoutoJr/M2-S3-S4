@@ -6,7 +6,12 @@ exports.validaEmail = (email) => {
     }
     return false;
   }
-
+/**
+ * Função para gerar uma lista de dadas dd/mm/aaaa de um mes e ano passados por parâmetro
+ * @param {number} mes valor de 1 a 12
+ * @param {number} ano valor com 4 digitos
+ * @returns 
+ */
 exports.dateList = ( mes, ano) => {
         const month = [1,2,3,4,5,6,7,8,9,10,11,12]
         const listDays = []
@@ -23,8 +28,15 @@ exports.dateList = ( mes, ano) => {
         }
     }
 
+
+// Funções com manipulação de arquivos
 const fs = require("fs")
 
+/**
+ * Função de Escrita de dados em uma arquivo JSON
+ * @param {string} filename
+ * @param {object} data
+ */
 exports.writeData = (fileName, data) => {
   try {
     fs.writeFileSync('' + fileName, 
@@ -34,6 +46,11 @@ exports.writeData = (fileName, data) => {
     }
 }
 
+/**
+ * Função para ler um arquivo do tipo JSON
+ * @param {string} filename
+ * @returns {object} uma lista de objetos
+ */
 exports.readData = (fileName) => {
   try {
     const readResult = JSON.parse(
