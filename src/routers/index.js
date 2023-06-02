@@ -3,7 +3,7 @@
 // Instaciando a variável routes com a função express.Router()
 const express = require('express')
 const routers = express.Router()
-const {processAct, diasMes, insertItem, filtrar, toUpDate} = require('../controllers/functions')
+const {processAct, diasMes, insertItem, filtrar, toUpDate, toDelete} = require('../controllers/functions')
 
 // Definindo uma das rotas
 // A função de cada rota está disponível na pasta controllers - local das regras de negócio
@@ -15,6 +15,7 @@ routers.get("/dia", diasMes)
 routers.post("/itens", insertItem)
 routers.get('/filter', filtrar)
 routers.put('/alterar/:id', toUpDate)
+routers.delete('/delete/:id', toDelete)
 
 
 // Exportação do objeto routes para uso no server.js

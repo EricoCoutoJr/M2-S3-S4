@@ -1,4 +1,3 @@
-const { request } = require("express")
 const { dateList, readData, writeData } = require("../utils")
 
 // Nas funções serão implementadas as regras de negócio e serão usadas pelas rotas em routers.js
@@ -126,6 +125,26 @@ module.exports ={
     writeData('src/data/user.json', userUpDated)
     return response.status(200).send({ mensagem: 'Usuário atualizado.'})
 
+  },
+  async toDelete(request, response) {
+    const {id} = request.params
+    let users = readData('src/data/user.json')
+    
+    if (!users){
+      return response.status(400).send({mensagem: "Não há arquivo para ser pesquisado ou não há usuário."})
+    }
+    // A fariável userUpDated irá conter apenas usuário com o ID informado - {id}
+    const existUserId = users.some( user => id == user.id)
+
+    if (!existUserId){
+      return response.status(404).send({ mensagem: `Usuário com ID ${id} inexistente.`})
+    }
+
+    // Filtrando  todo o array e deixando apenas o usuário com ID compatível de fora.
+    const usersNew = users.filter(user => id != user.id)
+    console.log(usersNew)
+    writeData('src/data/user.json', usersNew)
+    return response.status(200).send({ mensagem: `Usuário com ID ${id} removido.`})
   }
 }
   
