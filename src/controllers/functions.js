@@ -109,7 +109,7 @@ module.exports ={
     let userExist = false
     let userUpDated = users.map((user) => {
       if (id == user.id) {
-        userExiste = true
+        userExist = true
         return {
           id: user.id,
           name: name ? name : user.name,
