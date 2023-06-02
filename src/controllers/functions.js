@@ -106,8 +106,10 @@ module.exports ={
       return response.status(400).send({mensagem: "Não há arquivo para ser pesquisado ou não há usuário."})
     }
     // A fariável userUpDated irá conter apenas usuário com o ID informado
+    let userExist = false
     let userUpDated = users.map((user) => {
       if (id == user.id) {
+        userExiste = true
         return {
           id: user.id,
           name: name ? name : user.name,
@@ -118,6 +120,9 @@ module.exports ={
       return user
       // Irá retornar apenas um usuário que tiver o ID correspondente já modificado 
     })
+    if (userExist == false){
+      return response.status(401).send({ mensagem: 'Usuário inexistente.'})
+    }
     writeData('src/data/user.json', userUpDated)
     return response.status(200).send({ mensagem: 'Usuário atualizado.'})
 
