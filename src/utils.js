@@ -61,3 +61,20 @@ exports.readData = (fileName) => {
         return null
     }
 }
+
+/**
+ * Esta função gera um ID baseado na data e hora.
+ */
+exports.generarID = () => {
+const date = new date()
+return date.getTime()
+}
+  
+exports.codigosErros = (codigo) => {
+    const mensagens = { 
+        erroParametro: "É necessário o uso de um dos parâmetros.",
+        erroRequisicao: "Parâmetros inválidos."
+
+    }
+    return mensagens[codigo]
+}

@@ -2,15 +2,13 @@
     {
         "id": 1,
         "name": "Pedro",
-        "age": 25,
-        "job": "Developer",
+        "age": 27,
         "state": "Santa Catarina"
     },
     {
         "id": 2,
         "name": "José",
-        "age": 32,
-        "job": "Product Manager",
+        "age": 31,
         "state": "Rio Grande do Norte"
     },
     {

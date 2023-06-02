@@ -69,12 +69,12 @@ module.exports ={
 
   },
   async filtrar(request,response) {
-    users = readData('src/data/user.json')
+    let users = readData('src/data/user.json')
     const { ageMin, ageMax, state, job} = request.query
     console.log(ageMin, ageMax, state, job)
     if((!ageMin) && (!ageMax) && (!state) && (!job)){
       return response.status(400).send({ mensagem: 'É necessário o uso de um dos parâmetros.',
-                                          erro: 'Requisição inválida. Sem parâmetros.'})
+                                         erro: 'Requisição inválida. Sem parâmetros.'})
     }
     let usersFiltrados = users.filter(user => {
       if (ageMin && user.age < parseInt(ageMin)) {
@@ -92,6 +92,35 @@ module.exports ={
       return true;
     });
     return response.status(200).send({mensagem: usersFiltrados})
+  },
+  async toUpDate(request, response) {
+    const {id} = request.params
+    const {name, age, job, state} = request.body
+    let users = readData('src/data/user.json')
+    
+    if((!name) && (!age) && (!state) && (!job)){
+      return response.status(400).send({ mensagem: 'É necessário o uso de um dos parâmetros.',
+      erro: 400})
+    }
+    if (!users){
+      return response.status(400).send({mensagem: "Não há arquivo para ser pesquisado ou não há usuário."})
+    }
+    // A fariável userUpDated irá conter apenas usuário com o ID informado
+    let userUpDated = users.map((user) => {
+      if (id == user.id) {
+        return {
+          id: user.id,
+          name: name ? name : user.name,
+          age: age ? age : user.age,
+          state:  state ? state : user.state
+        }
+      }
+      return user
+      // Irá retornar apenas um usuário que tiver o ID correspondente já modificado 
+    })
+    writeData('src/data/user.json', userUpDated)
+    return response.status(200).send({ mensagem: 'Usuário atualizado.'})
+
   }
 }
   
