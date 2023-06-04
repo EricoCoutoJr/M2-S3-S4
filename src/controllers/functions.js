@@ -162,9 +162,30 @@ module.exports ={
 
     // Filtrando  todo o array e deixando apenas o usuário com ID compatível de fora.
     const usersNew = users.filter(user => id == user.id)
-    console.log(usersNew)
     return response.status(200).send(
       { name: usersNew[0].name})
+  },
+  async convertCase(request, response) {
+    let reqString = request.body.str
+    console.log(reqString)
+    if (reqString && typeof reqString === 'string'){
+      reqString = reqString.split('')
+      let resString =''
+
+      resString = reqString.map(char => {
+        if (char ===char.toUpperCase()) {
+          return char.toLowerCase()
+        } else if (char === char.toLowerCase()){
+          return char.toUpperCase()
+        } else {
+          return char
+        }
+      })
+      resString = resString.join('')
+      return response.status(200).send({ str: resString})
+    } else {
+      response.status(400).send({mensagem: "A entrada precisa ser uma string."})
+    }
   }
 }
   
