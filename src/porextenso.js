@@ -114,11 +114,25 @@ function sliceArr(number){
   return slicedBy3;
 }
 
+function isAValidNum(number){
+  let numberIn = number.split('')
+  if( numberIn.length > 15){
+    return false
+  } else {
+    return true
+  }
+}
+
 // no módule de exportação é montado o texto final para retornar a mensagem do 
 // número por extenso
 module.exports ={
   async porextenso(request,response){
     let numero = request.body.num
+    if (isAValidNum(numero)){
+      return response.status(400).send(
+        {"erro": "Valor invalido",
+         "resposta": "Limite de valor é entre -999999999999999 a 999999999999999" })
+    }
     const sliced = sliceArr(numero)
     console.log(sliced)
     extenso = ""
