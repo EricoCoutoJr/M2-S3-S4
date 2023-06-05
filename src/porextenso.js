@@ -128,7 +128,7 @@ function isAValidNum(number){
 module.exports ={
   async porextenso(request,response){
     let numero = request.body.num
-    if (isAValidNum(numero)){
+    if (!isAValidNum(numero)){
       return response.status(400).send(
         {"erro": "Valor invalido",
          "resposta": "Limite de valor é entre -999999999999999 a 999999999999999" })
