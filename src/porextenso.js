@@ -23,7 +23,6 @@ const unidades = [
 ]
 const dezenas = [
   "",
-  "",
   "vinte",
   "trinta",
   "quarenta",
